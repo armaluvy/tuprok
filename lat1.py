@@ -4,15 +4,15 @@ from math import sin
 from math import cos
 
 
-def generateChromosome(chrom_Len):
+def geneChromosome(chrom_Len):
     chromosome = [int(random.choice([1,0])) for i in range(chrom_Len)]
     return chromosome
 
-def generatePopulation(popul_Len, chrom_Len):
-    population = [generateChromosome(chrom_Len) for i in range(popul_Len)]
+def genePopulation(popul_Len, chrom_Len):
+    population = [geneChromosome(chrom_Len) for i in range(popul_Len)]
     return population
 
-def decodeChrom(chrom):
+def decodeChromosome(chrom):
     rax = 5
     ray = 5
     rbx = -5
@@ -32,10 +32,10 @@ def decodeChrom(chrom):
     return x, y
 
 
-def generateFitness(population):
+def geneFitness(population):
     fitness = list()
     for i in population:
-       x, y= decodeChrom(i)
+       x, y= decodeChromosome(i)
        hxy = (((math.cos(x))+(math.sin(y)))**2)/((x**2)+(y**2))
        fitness.append(hxy)
     return fitness
@@ -89,8 +89,8 @@ popul_Len=200 #banyaknya kromosom, yaitu 200
 pm=0.1
 pc=0.7
 generasi = 0 #banyaknya generasi/keturunan
-population=generatePopulation(popul_Len, chrom_Len)
-fitness=generateFitness(population)
+population=genePopulation(popul_Len, chrom_Len)
+fitness=geneFitness(population)
 
 
 for i in range(12000): 
@@ -99,14 +99,14 @@ for i in range(12000):
     population = new_population
     generasi += 1
     print("Generasi ke ", generasi, "\n", end="\n")
-    fitness = generateFitness(population)
+    fitness = geneFitness(population)
 
 print("\n")
 
 populasi_akhir=population
-fitnes_akhir=generateFitness(populasi_akhir)
+fitnes_akhir=geneFitness(populasi_akhir)
 idx_min=fitness.index(min(fitness))
 print("ini nilai fitness terkecil : ",fitness[idx_min])
 print("ini isi kromosom : ", population[0])
-nilaiXY = decodeChrom(population[idx_min])
+nilaiXY = decodeChromosome(population[idx_min])
 print("nilai x dan y :",nilaiXY)
